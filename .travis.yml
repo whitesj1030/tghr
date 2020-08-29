@@ -1,0 +1,24 @@
+language: java
+#before_install:
+#  - sudo chmod +x mvnw
+jdk:
+- openjdk8
+
+branches:
+only:
+- master
+
+
+  
+# Travis CI 서버의 Home
+cache:
+  directories:
+    - $HOME/.m2
+
+script: "mvn test -B"
+
+# CI 실행 완료시 메일로 알람
+notifications:
+email:
+recipients:
+- ycpopo@naver.com
