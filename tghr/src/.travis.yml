@@ -6,8 +6,8 @@ branches:
 only:
 - master
 
-before_install:
-  - sudo chmod +x mvnw
+# before_install:
+#   - sudo chmod +x mvnw
   
 # Travis CI 서버의 Home
 cache:
