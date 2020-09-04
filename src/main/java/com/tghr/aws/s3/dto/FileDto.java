@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.tghr.aws.s3.entity.FileEntity;
+import com.tghr.aws.s3.model.File;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,8 +29,8 @@ public class FileDto {
 	@Size(max = 100)
     private String filePath;
 
-    public FileEntity toEntity(){
-        FileEntity build = FileEntity.builder()
+    public File toEntity(){
+        File build = File.builder()
                 .id(carid)
                 .title(title)
                 .filePath(filePath)

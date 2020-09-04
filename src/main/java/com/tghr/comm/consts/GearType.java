@@ -1,4 +1,4 @@
-package com.tghr.consts;
+package com.tghr.comm.consts;
 
 public enum GearType {
 	M,

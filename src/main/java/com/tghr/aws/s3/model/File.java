@@ -1,5 +1,5 @@
 
-package com.tghr.aws.s3.entity;
+package com.tghr.aws.s3.model;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "file")
-public class FileEntity {
+public class File {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class FileEntity {
     private String filePath;
 
     @Builder
-    public FileEntity(Long id, String title, String filePath) {
+    public File(Long id, String title, String filePath) {
         this.id = id;
         this.title = title;
         this.filePath = filePath;

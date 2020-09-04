@@ -1,4 +1,4 @@
-package com.tghr.aws.s3.entity;
+package com.tghr.comm.entity;
 
 import java.time.LocalDateTime;
 

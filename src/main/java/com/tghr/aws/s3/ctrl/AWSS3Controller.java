@@ -15,43 +15,42 @@ import com.tghr.aws.s3.dto.FileDto;
 import com.tghr.aws.s3.service.AWSS3Service;
 import com.tghr.aws.s3.service.FileService;
 
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 
+@Api(value = "파일  API", tags = {"파일 서버 API (CRUD)"})
 @RestController
 @AllArgsConstructor
-@RequestMapping(value= "/s3")
-public class AWSS3Ctrl {
-	
-	private AWSS3Service s3service;
-    private FileService fileService;
+@RequestMapping(value = "/api/s3")
+public class AWSS3Controller {
 
-    /**
-     * 파일 업로드 
-     * @param  
-     * @param multipartFile
-     * @return
-     */
-	@PostMapping(value= "/upload")
-	public ResponseEntity<String> uploadFile(@RequestPart(value= "file") final MultipartFile multipartFile) {
+	private AWSS3Service s3service;
+	private FileService fileService;
+
+	/**
+	 * 파일 업로드
+	 * 
+	 * @param
+	 * @param multipartFile
+	 * @return
+	 */
+	@PostMapping(value = "/upload")
+	public ResponseEntity<String> uploadFile(@RequestPart(value = "file") final MultipartFile multipartFile) {
 		String uniqueFileName = s3service.uploadFile(multipartFile);
-		FileDto fileDto = new FileDto ();
+		FileDto fileDto = new FileDto();
 		fileDto.setTitle("SM3");
 		fileDto.setFilePath(uniqueFileName);
-        fileService.savePost(fileDto);
-        
+		fileService.savePost(fileDto);
+
 		final String response = "[" + multipartFile.getOriginalFilename() + "] uploaded successfully.";
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@GetMapping(value= "/download")
-	public ResponseEntity<ByteArrayResource> downloadFile(@RequestParam(value= "fileName") final String keyName) {
+	@GetMapping(value = "/download")
+	public ResponseEntity<ByteArrayResource> downloadFile(@RequestParam(value = "fileName") final String keyName) {
 		final byte[] data = s3service.downloadFile(keyName);
 		final ByteArrayResource resource = new ByteArrayResource(data);
-		return ResponseEntity
-				.ok()
-				.contentLength(data.length)
-				.header("Content-type", "application/octet-stream")
-				.header("Content-disposition", "attachment; filename=\"" + keyName + "\"")
-				.body(resource);
+		return ResponseEntity.ok().contentLength(data.length).header("Content-type", "application/octet-stream")
+				.header("Content-disposition", "attachment; filename=\"" + keyName + "\"").body(resource);
 	}
 }
