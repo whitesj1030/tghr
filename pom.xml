@@ -90,7 +90,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>SpringbootS3tutorial</finalName>
+		<finalName>TghrAPI</finalName>
 		<!-- To make spring boot as a fat jar so that all required jar files and 
 			main file is added for running the code from Docker. -->
 		<plugins>
