@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 
-@Api(value = "차량정보 API", tags = {"차량정보 API (CRUD)"})
+@Api(value = "[1] 차량정보 API", tags = {"[1] 차량정보 API "})
 @RestController
 @AllArgsConstructor
 @RequestMapping(value= "/api/car")

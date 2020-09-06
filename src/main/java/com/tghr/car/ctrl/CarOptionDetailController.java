@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 
-@Api(value = "개별 차량 옵션별 옵션 정보 API", tags = {"개별 차량 옵션별 옵션정보 API (CRUD)"})
+@Api(value = "]개별 차량 옵션별 정보 API", tags = {"[2] 개별 차량 옵션별 정보 API"})
 @RestController
 @AllArgsConstructor
 @RequestMapping(value= "/api/optdetail")

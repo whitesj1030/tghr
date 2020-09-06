@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 
-@Api(value = "옵션 그룹 API", tags = {"옵션그룹 API (CRUD)"})
+@Api(value = "[마스터] 옵션 그룹 API", tags = {"[마스터] 옵션그룹 마스터데이터 API"})
 @RestController
 @AllArgsConstructor
 @RequestMapping(value= "/api/optgrp")

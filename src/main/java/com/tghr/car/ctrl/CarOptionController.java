@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 
-@Api(value = "차량옵션 마스터데이터 API", tags = {"차량옵션 마스터데이터 API (CRUD)"})
+@Api(value = "[마스터] 차량옵션 마스터데이터 API", tags = {"[마스터] 차량옵션 마스터데이터 API"})
 @RestController
 @AllArgsConstructor
 @RequestMapping(value= "/api/opt")

@@ -19,7 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
-@Api(value = "파일  API", tags = {"파일 서버 API (CRUD)"})
+@Api(value = "[파일] 파일  API", tags = {"[파일]  파일 서버 API (CRUD)"})
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api/s3")
