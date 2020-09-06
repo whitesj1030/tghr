@@ -1,4 +1,4 @@
-package com.tghr.aws.s3.reposigory;
+package com.tghr.aws.s3.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

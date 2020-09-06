@@ -1,12 +1,10 @@
 package com.tghr.car.ctrl;
 
-import java.net.URI;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tghr.car.model.Car;
 import com.tghr.car.service.CarService;
 import com.tghr.comm.consts.AppConstants;
 import com.tghr.comm.util.PageRequest;
-import com.tghr.common.exception.CarNotFoundException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,33 +49,30 @@ public class CarController {
 	
 	@ApiOperation(value = "차량 검색", notes = "차 아이디로 검색")
 	@GetMapping("{id}")
-	public Car getCarInfo(@PathVariable long id) {
-		Optional<Car> car = carService.findById(id);
-		car.orElseThrow(() -> new CarNotFoundException("id-" + id));	
-		return car.get();
+	public ResponseEntity<Object> getCarInfo(@PathVariable long id) {
+		Car car = carService.findById(id);	
+		return ResponseEntity.status(HttpStatus.OK).body(car);
 	}
 	
 	@ApiOperation(value = "차량 검색", notes = "차 아이디로 검색")
 	@GetMapping("/one/{id}")
-	public Car findCarsByIdUsingQuery(@PathVariable long id) {
-		Car car = carService.findCarsByIdUsingQuery(id);
-		if (null == car)
-			throw new CarNotFoundException("id-" + id);
-		return car;
+	public ResponseEntity<Object> findCarsByIdUsingQuery(@PathVariable long id) {
+		Car car = carService.findCarsByIdUsingQuery(id);		
+		return ResponseEntity.status(HttpStatus.OK).body(car);
 	}	
 	
 	@ApiOperation(value = "차량 등록", notes = "차량 정보 등록 -(파일, 옵션은 별도 등록")
 	@PostMapping("")
 	public ResponseEntity<Object> createCar(@RequestBody Car car) {
 		Car savedCar = carService.saveCar(car);
-		return ResponseEntity.created(this.getLocation(savedCar)).build();
+		return ResponseEntity.status(HttpStatus.OK).body(savedCar);
 	}
 	
 	@ApiOperation(value = "차량 갱신", notes = "차량 정보 갱신")
 	@PutMapping("")
 	public ResponseEntity<Object> updateCar(@RequestBody Car car) {
 		Car updateCar = carService.updateCar(car);
-		return ResponseEntity.created(this.getLocation(updateCar)).build();
+		 return ResponseEntity.status(HttpStatus.OK).body(updateCar);
 	}
 	
 	@ApiOperation(value = "차량 삭제", notes = "차 아이디로 삭제")
@@ -87,10 +80,6 @@ public class CarController {
 	public void deleteById(@PathVariable long id) {
 		carService.deleteById(id);
 	}
-	
-	private URI getLocation(Car car) {
-		return ServletUriComponentsBuilder.fromCurrentRequest().path("")
-				.buildAndExpand(car.getCarId()).toUri();
-	}
+
 	
 }

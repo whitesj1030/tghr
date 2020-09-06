@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tghr.car.model.Car;
-import com.tghr.car.reposigory.CarRepository;
-import com.tghr.common.exception.CarNotFoundException;
+import com.tghr.car.repository.CarRepository;
+import com.tghr.comm.exception.CarNotFoundException;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CarService {
 
 	@Autowired
@@ -27,11 +27,16 @@ public class CarService {
     }
 	
 	public Car findCarsByIdUsingQuery(Long id)	{
-		return carRepository.findCarsByCarIdUsingNamedParameters(id);
+		Car car = carRepository.findCarsByCarIdUsingNamedParameters(id);
+		if (null == car)
+			throw new CarNotFoundException("id-" + id);
+		return car;
 	}
         
-	public Optional<Car> findById(Long id)	{
-		return carRepository.findById(id);
+	public Car findById(Long id)	{
+		Optional<Car> car = carRepository.findById(id);
+		car.orElseThrow(() -> new CarNotFoundException("id-" + id));
+		return car.get();
 	}
 	
 	public Car saveCar(Car car) {		

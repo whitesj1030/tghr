@@ -4,24 +4,24 @@ VALUES(1, '2020-09-03 18:45:50.234', '2020-09-03 18:45:50.234', 30000000.00, '�
 
 INSERT INTO tghrdb.tc_car_option_group
 (opt_grp_id, created_date, modified_date, opt_grp_nm)
-VALUES(1, NULL, '2020-09-04 14:35:21.701', '안전');
+VALUES(1, NULL, NULL, '안전');
 INSERT INTO tghrdb.tc_car_option_group
 (opt_grp_id, created_date, modified_date, opt_grp_nm)
-VALUES(2, NULL, '2020-09-04 11:34:33.608', '편의사양');
+VALUES(2, NULL, NULL, '편의사양');
 
 
 INSERT INTO tghrdb.tc_car_option
-(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm, opt_n)
-VALUES(1, NULL, NULL, NULL, 1, '에어벡', NULL);
+(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm)
+VALUES(1, NULL, NULL, NULL, 1, '에어벡');
 INSERT INTO tghrdb.tc_car_option
-(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm, opt_n)
-VALUES(2, NULL, NULL, NULL, 1, 'ABS', NULL);
+(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm)
+VALUES(2, NULL, NULL, NULL, 1, 'ABS');
 INSERT INTO tghrdb.tc_car_option
-(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm, opt_n)
-VALUES(3, '2020-09-04 11:37:01.286', '2020-09-04 11:37:01.286', '브러쉬 자동 작동', 3, '레인센서', NULL);
+(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm)
+VALUES(3, '2020-09-04 11:37:01.286', '2020-09-04 11:37:01.286', '브러쉬 자동 작동', 3, '레인센서');
 INSERT INTO tghrdb.tc_car_option
-(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm, opt_n)
-VALUES(4, NULL, '2020-09-04 11:39:05.417', '우천시 자동 작동', NULL, NULL, NULL);
+(opt_id, created_date, modified_date, opt_desc, opt_grp_id, opt_nm)
+VALUES(4, NULL, '2020-09-04 11:39:05.417', '우천시 자동 작동', NULL, NULL);
 
 
 INSERT INTO tghrdb.tc_car_option_detail

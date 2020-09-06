@@ -1,8 +1,5 @@
 package com.tghr.aws.s3.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,28 +16,37 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class FileDto {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long carid;
+
+	private Long fileId;
+	
+	@NotBlank
+    private Long carId;
+    
 	@NotBlank
 	@Size(max = 50)
     private String title;
+	
 	@NotBlank
 	@Size(max = 100)
-    private String filePath;
+    private String fileURL;
 
     public File toEntity(){
         File build = File.builder()
-                .id(carid)
+                .fileId(fileId)
+                .carId(carId)
                 .title(title)
-                .filePath(filePath)
+                .filePath(fileURL)
                 .build();
         return build;
     }
 
     @Builder
-    public FileDto(String title, String filePath) {
-        this.title = title;
-        this.filePath = filePath;
-    }
+	public FileDto(Long fileId, @NotBlank Long carId, @NotBlank @Size(max = 50) String title,
+			@NotBlank @Size(max = 100) String fileURL) {
+		super();
+		this.fileId = fileId;
+		this.carId = carId;
+		this.title = title;
+		this.fileURL = fileURL;
+	}
 }

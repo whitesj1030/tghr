@@ -1,4 +1,4 @@
-package com.tghr.common.exception;
+package com.tghr.comm.exception;
 
 public class CarOptionDetailNotFoundException extends RuntimeException {
 

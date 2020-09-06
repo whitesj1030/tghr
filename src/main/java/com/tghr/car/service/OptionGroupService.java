@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tghr.car.model.OptionGroup;
-import com.tghr.car.reposigory.OptionGroupRepository;
-import com.tghr.common.exception.OptionGroupNotFoundException;
+import com.tghr.car.repository.OptionGroupRepository;
+import com.tghr.comm.exception.OptionGroupNotFoundException;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 차량 옵션 그룹 마스터 데이터 관리
@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OptionGroupService {
 
 	@Autowired

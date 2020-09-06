@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tghr.car.model.CarOptionDetail;
 import com.tghr.car.service.CarOptionDetailService;
 import com.tghr.comm.consts.AppConstants;
+import com.tghr.comm.exception.CarOptionDetailNotFoundException;
 import com.tghr.comm.util.PageRequest;
-import com.tghr.common.exception.CarOptionDetailNotFoundException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

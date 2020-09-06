@@ -1,4 +1,4 @@
-package com.tghr.car.reposigory;
+package com.tghr.car.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

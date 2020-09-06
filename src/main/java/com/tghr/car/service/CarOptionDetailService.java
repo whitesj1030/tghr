@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tghr.car.model.CarOptionDetail;
-import com.tghr.car.reposigory.CarOptionDetailRepository;
+import com.tghr.car.repository.CarOptionDetailRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CarOptionDetailService {
 
 	@Autowired

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tghr.car.model.CarOption;
-import com.tghr.car.reposigory.CarOptionRepository;
-import com.tghr.common.exception.OptionNotFoundException;
+import com.tghr.car.repository.CarOptionRepository;
+import com.tghr.comm.exception.OptionNotFoundException;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 차량 옵션 마스터 데이터 관리
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CarOptionService {
 
 	@Autowired
