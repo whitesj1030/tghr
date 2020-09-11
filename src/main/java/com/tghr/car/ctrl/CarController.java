@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,6 +71,7 @@ public class CarController {
 	
 	@ApiOperation(value = "차량 갱신", notes = "차량 정보 갱신")
 	@PutMapping("")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<Object> updateCar(@RequestBody Car car) {
 		Car updateCar = carService.updateCar(car);
 		 return ResponseEntity.status(HttpStatus.OK).body(updateCar);
@@ -77,6 +79,7 @@ public class CarController {
 	
 	@ApiOperation(value = "차량 삭제", notes = "차 아이디로 삭제")
 	@DeleteMapping("/{id}")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
 		carService.deleteById(id);
 	}

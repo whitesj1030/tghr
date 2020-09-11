@@ -1,14 +1,12 @@
 package com.tghr.car.ctrl;
 
-import java.net.URI;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tghr.car.model.Car;
-import com.tghr.car.model.CarOption;
 import com.tghr.car.model.OptionGroup;
 import com.tghr.car.service.OptionGroupService;
 import com.tghr.comm.consts.AppConstants;
@@ -61,6 +56,7 @@ public class OptionGroupController {
 
 	@ApiOperation(value = "옵션그룹 갱신", notes = "옵션그룹 정보 갱신 ")
 	@PutMapping("")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<Object> updateOptionGroup(@RequestBody OptionGroup optionGroup) {
 		OptionGroup updatedOptionGroup = optionGroupService.updateOptionGroup(optionGroup);
 		return ResponseEntity.status(HttpStatus.OK).body(updatedOptionGroup);
@@ -68,6 +64,7 @@ public class OptionGroupController {
 		
 	@ApiOperation(value = "옵션 그룹 삭제", notes = "옵션 그룹 아이디로 삭제")
 	@DeleteMapping("/{id}")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
 		optionGroupService.deleteById(id);
 	}

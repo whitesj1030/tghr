@@ -1,13 +1,12 @@
 package com.tghr.car.ctrl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tghr.car.model.CarOptionDetail;
 import com.tghr.car.service.CarOptionDetailService;
 import com.tghr.comm.consts.AppConstants;
-import com.tghr.comm.exception.CarOptionDetailNotFoundException;
 import com.tghr.comm.util.PageRequest;
 
 import io.swagger.annotations.Api;
@@ -66,6 +64,7 @@ public class CarOptionDetailController {
 	
 	@ApiOperation(value = "개별 차량 옵션 갱신", notes = "개별 차량 옵션 정보 갱신")
 	@PutMapping("/{id}")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@ResponseBody
 	public List<CarOptionDetail> updateCarOptionDetail(@RequestBody List<CarOptionDetail> carOptionDetailList) {
 		return carOptionDetailService.updateCarOptionDetail(carOptionDetailList);	
@@ -73,6 +72,7 @@ public class CarOptionDetailController {
 	
 	@ApiOperation(value = "개별 차량 옵션 삭제", notes = "차 아이디로 삭제")
 	@DeleteMapping("/{id}")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
 		carOptionDetailService.deleteById(id);
 	}
