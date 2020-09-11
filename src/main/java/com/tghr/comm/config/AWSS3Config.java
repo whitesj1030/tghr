@@ -1,4 +1,4 @@
-package com.tghr.aws.s3.config;
+package com.tghr.comm.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
