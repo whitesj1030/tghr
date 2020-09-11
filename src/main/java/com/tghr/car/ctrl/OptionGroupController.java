@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,26 +56,20 @@ public class OptionGroupController {
 	@PostMapping("")
 	public ResponseEntity<Object> createOptionGroup(@RequestBody OptionGroup optionGroup) {
 		OptionGroup savedOptionGroup = optionGroupService.saveOptionGroup(optionGroup);	
-		return ResponseEntity.created(getLocation(savedOptionGroup)).build();
-	}
-	
+		return ResponseEntity.status(HttpStatus.OK).body(savedOptionGroup);
+	}	
 
 	@ApiOperation(value = "옵션그룹 갱신", notes = "옵션그룹 정보 갱신 ")
 	@PutMapping("")
 	public ResponseEntity<Object> updateOptionGroup(@RequestBody OptionGroup optionGroup) {
 		OptionGroup updatedOptionGroup = optionGroupService.updateOptionGroup(optionGroup);
-		return ResponseEntity.created(this.getLocation(updatedOptionGroup)).build();
+		return ResponseEntity.status(HttpStatus.OK).body(updatedOptionGroup);
 	}
-	
-	
+		
 	@ApiOperation(value = "옵션 그룹 삭제", notes = "옵션 그룹 아이디로 삭제")
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable long id) {
 		optionGroupService.deleteById(id);
 	}
-	
-	private URI getLocation(OptionGroup optionGroup) {
-		return ServletUriComponentsBuilder.fromCurrentRequest().path("")
-				.buildAndExpand(optionGroup.getOptGrpId()).toUri();
-	}
+
 }

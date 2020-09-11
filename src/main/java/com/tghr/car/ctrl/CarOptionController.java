@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,7 @@ public class CarOptionController {
 	@GetMapping("")
     public Page<CarOption> getCarOptionList(@ApiParam(value = "페이지 번호", required = false, example = "1") @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
     		@ApiParam(value = "페이지 사이즈", required = false, example = "10") @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
-    		@ApiParam(value = "정렬 기준 속성", required = false, example = "tcCarId") @RequestParam(value = "searchparam", defaultValue = AppConstants.DEFAULT_SEARCH_PARAM) String searchparam,
+    		@ApiParam(value = "정렬 기준 속성", required = false, example = "optId") @RequestParam(value = "searchparam", defaultValue = AppConstants.DEFAULT_SEARCH_PARAM) String searchparam,
     		@ApiParam(value = "정렬방법", required = false, example = "DESC") @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION) String direction) {
     	return carOptionService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
     }	
@@ -52,14 +53,14 @@ public class CarOptionController {
 	@PostMapping("")
 	public ResponseEntity<Object> createCar(@RequestBody CarOption carOption) {
 		CarOption savedCarOption = carOptionService.saveCarOption(carOption);
-		return ResponseEntity.created(getLocation(savedCarOption)).build();
+		return ResponseEntity.status(HttpStatus.OK).body(savedCarOption);
 	}
 	
 	@ApiOperation(value = "차량옵션 갱신", notes = "차량옵션 정보 갱신 ")
 	@PutMapping("")
 	public ResponseEntity<Object> updateCarOption(@RequestBody CarOption carOption) {
 		CarOption updatedCarOption = carOptionService.updateCarOption(carOption);
-		return ResponseEntity.created(this.getLocation(updatedCarOption)).build();
+		return ResponseEntity.status(HttpStatus.OK).body(updatedCarOption);
 	}
 		
 	@ApiOperation(value = "차량옵션 삭제", notes = "차량옵션 아이디로 삭제")
@@ -67,10 +68,4 @@ public class CarOptionController {
 	public void deleteById(@PathVariable long id) {
 		carOptionService.deleteById(id);
 	}
-		
-	private URI getLocation(CarOption carOption) {
-		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(carOption.getOptId()).toUri();
-	}
-
 }
