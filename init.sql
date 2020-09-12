@@ -24,15 +24,8 @@ INSERT INTO tghrdb.tc_car_option
 VALUES(4, NULL, '2020-09-04 11:39:05.417', '우천시 자동 작동', NULL, NULL);
 
 
-INSERT INTO tghrdb.tc_car_option_detail
-(car_option_detail_id, created_date, modified_date, opt_id, opt_val, car_id)
-VALUES(1, NULL, '2020-09-04 15:15:45.975', NULL, '에에벡33', 1);
-INSERT INTO tghrdb.tc_car_option_detail
-(car_option_detail_id, created_date, modified_date, opt_id, opt_val, car_id)
-VALUES(2, NULL, '2020-09-04 15:15:45.982', NULL, 'ABS33', 1);
-INSERT INTO tghrdb.tc_car_option_detail
-(car_option_detail_id, created_date, modified_date, opt_id, opt_val, car_id)
-VALUES(3, '2020-09-04 14:57:26.439', '2020-09-04 14:57:26.439', '1', 'EBS', 1);
-INSERT INTO tghrdb.tc_car_option_detail
-(car_option_detail_id, created_date, modified_date, opt_id, opt_val, car_id)
-VALUES(4, '2020-09-04 15:00:05.545', '2020-09-04 15:00:05.545', '1', '자율주행', 1);
+INSERT INTO tghrdb.tc_car_option_detail (created_date,modified_date,car_id,opt_id,opt_val) VALUES 
+('2020-09-04 14:57:33.000','2020-09-04 15:15:45.975',1,1,'에에벡')
+,('2020-09-04 14:57:23.000','2020-09-04 15:15:45.982',1,1,'ABS')
+,('2020-09-04 14:57:26.439','2020-09-04 14:57:26.439',1,1,'EBS')
+,('2020-09-04 15:00:05.545','2020-09-04 15:00:05.545',1,1,'자율주행');

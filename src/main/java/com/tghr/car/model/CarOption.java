@@ -1,12 +1,16 @@
 package com.tghr.car.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -37,25 +41,25 @@ public class CarOption extends BaseEntity {
 	@Column(name = "opt_desc")
 	private String optDesc;
 	
-    @OneToOne
-    @JoinColumn(name = "opt_grp_id", insertable = false, updatable = false) 
-    private OptionGroup optionGroup;
+//    @OneToOne
+//    @JoinColumn(name = "opt_grp_id", insertable = false, updatable = false) 
+//    private OptionGroup optionGroup;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "opt_id")  
+	private List<CarOptionDetail> carOptionDetailList = new ArrayList<>();
     
     @Transient
 	private String optGrpNm;
 
 	@Builder
-	public CarOption(Long optId, Long optGrpId, String optNm, String optDesc, OptionGroup optionGroup) {
+	public CarOption(Long optId, Long optGrpId, String optNm, String optDesc,  List<CarOptionDetail> carOptionDetailList) {
 		super();
 		this.optId = optId;
 		this.optGrpId = optGrpId;
 		this.optNm = optNm;
-		this.optDesc = optDesc;
-		this.optionGroup = optionGroup;
-	}
-	
-	public void setOptGrpNm() {
-		this.optGrpNm = optionGroup.getOptGrpNm();
+		this.optDesc = optDesc;		
+		this.carOptionDetailList = carOptionDetailList;
 	}
 	
 }

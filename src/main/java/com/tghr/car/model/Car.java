@@ -1,6 +1,7 @@
 package com.tghr.car.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,10 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -112,9 +113,12 @@ public class Car extends BaseEntity {
 	@Column(name = "del_yn", length = 1)
 	private YN delYn;
 	
-    // fetch = FetchType.LAZY
-    @OneToMany(mappedBy = "carId", cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
-    private List<CarOptionDetail> carOptionDetailList;
+//    @OneToMany(mappedBy = "carId", cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+//    private List<CarOptionDetail> carOptionDetailList;
+//    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "car_id")  
+	private List<CarOptionDetail> carOptionDetailList = new ArrayList<>();
 
     @Builder
 	public Car(Long carId, String carNm, String carRegisterDate, String carNumber, FUEL fuel, String fuelEff,

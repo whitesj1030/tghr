@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -29,33 +27,33 @@ public class CarOptionDetail extends BaseEntity {
 	private Long carOptionDetailId;
 
 	@Column(name = "car_id")
-	private String carId;
+	private Long carId;
 
 	@Column(name = "opt_id")
-	private String optId;
+	private Long optId;
 
 	@Column(name = "opt_val")
 	private String optVal;
 
-    @OneToOne
-    @JoinColumn(name = "opt_id", insertable = false, updatable = false) 
-    private CarOption carOption;
+//    @OneToOne
+//    @JoinColumn(name = "opt_id", insertable = false, updatable = false) 
+//    private CarOption carOption;
     
     @Transient
     private String optNm;
 
 	@Builder
-	public CarOptionDetail(Long carOptionDetailId, String carId, String optId, String optVal, CarOption carOption) {
+	public CarOptionDetail(Long carOptionDetailId, Long carId, Long optId, String optVal) {
 		super();
 		this.carOptionDetailId = carOptionDetailId;
 		this.carId = carId;
 		this.optId = optId;
 		this.optVal = optVal;
-		this.carOption = carOption;
-		this.optNm = carOption.getOptNm();
+		//this.carOption = carOption;
+		//this.optNm = carOption.getOptNm();
 	}
 	
-	public void setOptNm () {
-		this.optNm = carOption.getOptNm();
-	}	
+//	public void setOptNm () {
+//		this.optNm = carOption.getOptNm();
+//	}	
 }
