@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 
 import com.tghr.comm.entity.BaseEntity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,21 +30,21 @@ public class CarOption extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(value="옵션 ID : 자동생성 ")
 	@Column(name = "opt_id")
 	private Long optId;
 
+	@ApiModelProperty(value="옵션 그룹 ID")
 	@Column(name = "opt_grp_id")
 	private Long optGrpId;
 	
+	@ApiModelProperty(value="옵션명")
 	@Column(name = "opt_nm")
 	private String optNm;
 	
+	@ApiModelProperty(value="옵션 설명")
 	@Column(name = "opt_desc")
 	private String optDesc;
-	
-//    @OneToOne
-//    @JoinColumn(name = "opt_grp_id", insertable = false, updatable = false) 
-//    private OptionGroup optionGroup;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "opt_id")  
@@ -60,6 +61,5 @@ public class CarOption extends BaseEntity {
 		this.optNm = optNm;
 		this.optDesc = optDesc;		
 		this.carOptionDetailList = carOptionDetailList;
-	}
-	
+	}	
 }

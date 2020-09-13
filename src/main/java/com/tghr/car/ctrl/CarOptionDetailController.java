@@ -45,13 +45,14 @@ public class CarOptionDetailController {
     		@ApiParam(value = "페이지 사이즈", required = false, example = "10") @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
     		@ApiParam(value = "정렬 기준 속성", required = false, example = "carOptionDetailId") @RequestParam(value = "searchparam", defaultValue = AppConstants.DEFAULT_SEARCH_PARAM) String searchparam,
     		@ApiParam(value = "정렬방법", required = false, example = "DESC or ASC") @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION) String direction) {
-	
+		logger.debug("getCarOptionDetailList");
 		return carOptionDetailService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
     }
 	
 	@ApiOperation(value = "개별 차량 옵션 검색", notes = "차 아이디로 검색")
 	@GetMapping("/{carId}")
 	public List<CarOptionDetail> getCarOptionDetailInfo(@PathVariable long carId) {
+		logger.debug("getCarOptionDetailInfo called. car ID :"+ carId);
 		return carOptionDetailService.findByCarId(carId);
 	}
 	
@@ -59,6 +60,7 @@ public class CarOptionDetailController {
 	@PostMapping("")
 	@ResponseBody
 	public List<CarOptionDetail> createCarOptionDetail(@RequestBody List<CarOptionDetail> carOptionDetailList) {
+		logger.debug("createCarOptionDetail called. list size is "+ carOptionDetailList.size());
 		return carOptionDetailService.saveCarOptionDetail(carOptionDetailList);	
 	}
 	
@@ -67,6 +69,7 @@ public class CarOptionDetailController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@ResponseBody
 	public List<CarOptionDetail> updateCarOptionDetail(@RequestBody List<CarOptionDetail> carOptionDetailList) {
+		logger.debug("updateCarOptionDetail called. list size is "+ carOptionDetailList.size());
 		return carOptionDetailService.updateCarOptionDetail(carOptionDetailList);	
 	}
 	
@@ -74,6 +77,7 @@ public class CarOptionDetailController {
 	@DeleteMapping("/{id}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
+		logger.debug("deleteById called. optionGroup ID :"+id);
 		carOptionDetailService.deleteById(id);
 	}
 	

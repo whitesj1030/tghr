@@ -44,13 +44,15 @@ public class OptionGroupController {
     		@ApiParam(value = "페이지 사이즈", required = false, example = "10") @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
     		@ApiParam(value = "정렬 기준 속성", required = false, example = "optGrpId") @RequestParam(value = "searchparam", defaultValue = AppConstants.DEFAULT_SEARCH_PARAM) String searchparam,
     		@ApiParam(value = "정렬방법", required = false, example = "DESC or ASC") @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION) String direction) {
-    	return optionGroupService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
+		logger.debug("getOptionGroupList called");
+		return optionGroupService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
     }	
 	
 	@ApiOperation(value = "옵션그룹 등록", notes = "옵션그룹 정보 등록 ")
 	@PostMapping("")
 	public ResponseEntity<Object> createOptionGroup(@RequestBody OptionGroup optionGroup) {
-		OptionGroup savedOptionGroup = optionGroupService.saveOptionGroup(optionGroup);	
+		logger.debug("savedOptionGroup called. optionGroup ID :"+ optionGroup.getOptGrpId());
+		OptionGroup savedOptionGroup = optionGroupService.saveOptionGroup(optionGroup);		
 		return ResponseEntity.status(HttpStatus.OK).body(savedOptionGroup);
 	}	
 
@@ -58,7 +60,8 @@ public class OptionGroupController {
 	@PutMapping("")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<Object> updateOptionGroup(@RequestBody OptionGroup optionGroup) {
-		OptionGroup updatedOptionGroup = optionGroupService.updateOptionGroup(optionGroup);
+		logger.debug("updateOptionGroup called. optionGroup ID :"+ optionGroup.getOptGrpId());
+		OptionGroup updatedOptionGroup = optionGroupService.updateOptionGroup(optionGroup);		
 		return ResponseEntity.status(HttpStatus.OK).body(updatedOptionGroup);
 	}
 		
@@ -66,6 +69,7 @@ public class OptionGroupController {
 	@DeleteMapping("/{id}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
+		logger.debug("deleteById called. optionGroup ID :"+ id);
 		optionGroupService.deleteById(id);
 	}
 

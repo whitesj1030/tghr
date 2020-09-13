@@ -22,6 +22,7 @@ import com.tghr.comm.consts.GuaranteeType;
 import com.tghr.comm.consts.YN;
 import com.tghr.comm.entity.BaseEntity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,79 +44,97 @@ public class Car extends BaseEntity {
 	@Column(name = "car_id")
 	private Long carId;
 
+	@ApiModelProperty(value="차량명")
 	@Column(name = "car_nm", length = 10, nullable = false)
 	private String carNm;
 
+	@ApiModelProperty(value="차량최초등록일")
 	@Column(name = "car_register_date", length = 8)
 	private String carRegisterDate;
 
+	@ApiModelProperty(value="차량 번호(번호판)")
 	@Column(name = "car_number", length = 10)
 	private String carNumber;
 
+	@ApiModelProperty(value="연료 : G, L, D, E")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "fuel", length = 1)
 	private FUEL fuel;
 
+	@ApiModelProperty(value="연비: 단위 Km")
 	@Column(name = "fuel_eff")
-	private String fuelEff; // 연비
+	private String fuelEff;
 
+	@ApiModelProperty(value="연비")
 	@Column(name = "motor_type", length = 1)
 	private String motorType;
 
+	@ApiModelProperty(value="기어타입: M, A")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gear_type", length = 1)
 	private GearType gearType;
 
+	@ApiModelProperty(value="기어명: 자동10단")
 	@Column(name = "gear_nm")
 	private String gearNm;
 
+	@ApiModelProperty(value="차량검사 유효기간 start")
 	@Column(name = "inspection_start_date", length = 8)
 	private String inspectionStartDate;
 
+	@ApiModelProperty(value="차량검사 유효기간 만료일")
 	@Column(name = "inspection_end_date", length = 8)
 	private String inspectionEndDate;
 
+	@ApiModelProperty(value="보증유형: S,I  (자가 self, 보험사 insurance~)")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "guarantee_type", length = 1)
 	private GuaranteeType guaranteeType;
 
+	@ApiModelProperty(value="출고가")
 	@Column(name = "base_price")
 	private BigDecimal basePrice;
 
+	@ApiModelProperty(value="판매가")
 	@Column(name = "price")
 	private BigDecimal price;
 
+	@ApiModelProperty(value="주행거리")
 	@Column(name = "drv_dist")
-	private String drvDist;  // 주행거리
+	private String drvDist;  
 
+	@ApiModelProperty(value="차량 색상")
 	@Column(name = "car_color")
 	private String carColor;
 
-	@Column(name = "car_exhat")  // 배기량
+	@ApiModelProperty(value="배기량")
+	@Column(name = "car_exhat") 
 	private String carExhat;
 
+	@ApiModelProperty(value="흡연여부: Y/N")
 	@Column(name = "smok_yn")
 	private String smokYn;
 
-	@Column(name = "flood_yn")  // 침수 여부 
+	@ApiModelProperty(value="침수 여부 ")
+	@Column(name = "flood_yn") 
 	private String floodYn;
 
-	@Column(name = "rid_capa")  // 승차 정원
+	@ApiModelProperty(value="승차 정원")
+	@Column(name = "rid_capa") 
 	private String ridCapa;
 
-	@Column(name = "seizure_yn")  // 압류 저당 여부
+	@ApiModelProperty(value="압류 저당 여부")
+	@Column(name = "seizure_yn") 
 	private String seizureYn;
 
-	@Column(name = "recommend")  // 추천 포인트
+	@ApiModelProperty(value="추천 포인트")
+	@Column(name = "recommend") 
 	private String recommend;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "del_yn", length = 1)
 	private YN delYn;
 	
-//    @OneToMany(mappedBy = "carId", cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
-//    private List<CarOptionDetail> carOptionDetailList;
-//    
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "car_id")  
 	private List<CarOptionDetail> carOptionDetailList = new ArrayList<>();

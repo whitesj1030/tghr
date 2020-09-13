@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.tghr.comm.entity.BaseEntity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,9 +29,11 @@ public class OptionGroup extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(value="옵션 그룹 ID: 자동생성")
 	@Column(name = "opt_grp_id")
 	private Long optGrpId;
 	
+	@ApiModelProperty(value="옵션 그룹 명")
 	@Column(name = "opt_grp_nm")
 	private String optGrpNm;
 	

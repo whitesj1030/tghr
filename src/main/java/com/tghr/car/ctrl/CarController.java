@@ -44,13 +44,14 @@ public class CarController {
     		@ApiParam(value = "페이지 사이즈", required = false, example = "10") @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
     		@ApiParam(value = "정렬 기준 속성", required = false, example = "carId") @RequestParam(value = "searchparam", defaultValue = AppConstants.DEFAULT_SEARCH_PARAM) String searchparam,
     		@ApiParam(value = "정렬방법", required = false, example = "DESC or ASC") @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION) String direction) {
-	
+		logger.debug("getCarList called.  ");
 		return carService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
     }
 	
 	@ApiOperation(value = "차량 검색", notes = "차 아이디로 검색")
 	@GetMapping("{id}")
 	public ResponseEntity<Object> getCarInfo(@PathVariable long id) {
+		logger.debug("getCarInfo called. ID is "+ id);
 		Car car = carService.findById(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(car);
 	}
@@ -58,6 +59,7 @@ public class CarController {
 	@ApiOperation(value = "차량 검색", notes = "차 아이디로 검색")
 	@GetMapping("/one/{id}")
 	public ResponseEntity<Object> findCarsByIdUsingQuery(@PathVariable long id) {
+		logger.debug("findCarsByIdUsingQuery called. ID is "+ id);
 		Car car = carService.findCarsByIdUsingQuery(id);		
 		return ResponseEntity.status(HttpStatus.OK).body(car);
 	}	
@@ -65,6 +67,7 @@ public class CarController {
 	@ApiOperation(value = "차량 등록", notes = "차량 정보 등록 -(파일, 옵션은 별도 등록")
 	@PostMapping("")
 	public ResponseEntity<Object> createCar(@RequestBody Car car) {
+		logger.debug("createCar called. ID is "+ car.getCarId());
 		Car savedCar = carService.saveCar(car);
 		return ResponseEntity.status(HttpStatus.OK).body(savedCar);
 	}
@@ -73,6 +76,7 @@ public class CarController {
 	@PutMapping("")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<Object> updateCar(@RequestBody Car car) {
+		logger.debug("updateCar called. ID is "+ car.getCarId());
 		Car updateCar = carService.updateCar(car);
 		 return ResponseEntity.status(HttpStatus.OK).body(updateCar);
 	}
@@ -81,6 +85,7 @@ public class CarController {
 	@DeleteMapping("/{id}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
+		logger.debug("deleteById called. ID is "+ id);
 		carService.deleteById(id);
 	}
 

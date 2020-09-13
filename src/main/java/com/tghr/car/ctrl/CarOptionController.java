@@ -44,12 +44,14 @@ public class CarOptionController {
     		@ApiParam(value = "페이지 사이즈", required = false, example = "10") @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
     		@ApiParam(value = "정렬 기준 속성", required = false, example = "optId") @RequestParam(value = "searchparam", defaultValue = AppConstants.DEFAULT_SEARCH_PARAM) String searchparam,
     		@ApiParam(value = "정렬방법", required = false, example = "DESC") @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION) String direction) {
-    	return carOptionService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
+		logger.debug("getCarOptionList called. ID is "+ searchparam);
+		return carOptionService.findAll(new PageRequest(page, size, searchparam, direction).of());    	
     }	
 	
 	@ApiOperation(value = "차량옵션 등록", notes = "차량옵션 정보 등록 ")
 	@PostMapping("")
-	public ResponseEntity<Object> createCar(@RequestBody CarOption carOption) {
+	public ResponseEntity<Object> createCarOption(@RequestBody CarOption carOption) {
+		logger.debug("createCar called. ID is "+ carOption.getOptId());
 		CarOption savedCarOption = carOptionService.saveCarOption(carOption);
 		return ResponseEntity.status(HttpStatus.OK).body(savedCarOption);
 	}
@@ -58,6 +60,7 @@ public class CarOptionController {
 	@PutMapping("")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<Object> updateCarOption(@RequestBody CarOption carOption) {
+		logger.debug("updateCarOption called. ID is "+ carOption.getOptId());
 		CarOption updatedCarOption = carOptionService.updateCarOption(carOption);
 		return ResponseEntity.status(HttpStatus.OK).body(updatedCarOption);
 	}
@@ -66,6 +69,7 @@ public class CarOptionController {
 	@DeleteMapping("/{id}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public void deleteById(@PathVariable long id) {
+		logger.debug("deleteById called. ID is "+ id);
 		carOptionService.deleteById(id);
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 
 import com.tghr.comm.entity.BaseEntity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,19 +27,18 @@ public class CarOptionDetail extends BaseEntity {
 	@Column(name = "car_option_detail_id")
 	private Long carOptionDetailId;
 
+	@ApiModelProperty(value="차량 ID")
 	@Column(name = "car_id")
 	private Long carId;
 
+	@ApiModelProperty(value="옵션 ID")
 	@Column(name = "opt_id")
 	private Long optId;
 
+	@ApiModelProperty(value="옵션 값 : 이건왜 있을까?")
 	@Column(name = "opt_val")
 	private String optVal;
 
-//    @OneToOne
-//    @JoinColumn(name = "opt_id", insertable = false, updatable = false) 
-//    private CarOption carOption;
-    
     @Transient
     private String optNm;
 
@@ -49,11 +49,6 @@ public class CarOptionDetail extends BaseEntity {
 		this.carId = carId;
 		this.optId = optId;
 		this.optVal = optVal;
-		//this.carOption = carOption;
-		//this.optNm = carOption.getOptNm();
 	}
-	
-//	public void setOptNm () {
-//		this.optNm = carOption.getOptNm();
-//	}	
+
 }
