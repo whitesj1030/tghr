@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,9 +55,13 @@ public class TghrFileUtil {
 	 * @param carId
 	 * @return
 	 */
-	public PutObjectRequest uploadFileToS3Bucket(final File file, String carId) {
+	public PutObjectRequest uploadFileToS3Bucket(final File file, String carId) throws Exception {
 		final String uniqueFileName = this.getFilePrefix(carId) + LocalDateTime.now() + "_" + file.getName();
 		logger.info("Uploading file with name= " + uniqueFileName);
+	
+			if(!this.checkImageMimeType(file)) 	{
+				throw new IllegalArgumentException("이미지 파일만 등록이 가능합니다. 파일명: "+ file.getName());
+			}	
 		return new PutObjectRequest(bucketName, uniqueFileName, file);			
 	}
 	
@@ -97,5 +101,22 @@ public class TghrFileUtil {
         
         return carImageList;
     }
-
+    
+    /**
+     * MIME TYPE 확인
+     * @param input
+     * @return
+     * @throws IOException
+     */
+       public boolean checkImageMimeType(File file) throws IOException {    	   
+           Tika tika = new Tika();    
+           String mimeType = tika.detect(file);    
+           System.out.println("### MIME Type :  "+mimeType);
+           logger.debug("### MIME Type = {}", mimeType);    
+           if (mimeType.startsWith("image")) {
+               return true;
+           } else {
+               return false;
+           }    
+       }
 }

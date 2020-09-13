@@ -30,17 +30,27 @@ public class AWSS3Controller {
 	@ApiOperation(value = "파일 업로드", notes = "단일 파일 업로드")
 	@PostMapping(value = "/upload")
 	public ResponseEntity<String> uploadFile(@RequestPart(value = "file") final MultipartFile multipartFile, @RequestParam(value = "carId") final String carId) {
-		s3service.uploadFile(multipartFile, carId);
-		final String response = "[" + multipartFile.getOriginalFilename() + "] uploaded successfully.";
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		try {
+			s3service.uploadFile(multipartFile, carId);
+		} catch (Exception e) {
+			String responseNG = "File Upload Error : "+ e.getMessage();
+			return new ResponseEntity<>(responseNG, HttpStatus.BAD_REQUEST);
+		}
+		String responseOK = "[" + multipartFile.getOriginalFilename() + "] uploaded successfully.";
+		return new ResponseEntity<>(responseOK, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "여러개 파일 업로드", notes = "복수 파일 업로드")
 	@PostMapping(value = "/uploadFiles")
-    public ResponseEntity<String> uploadFiles(MultipartFile[] files,  @RequestParam(value = "carId") final String carId) {
-		s3service.uploadFiles(files, carId);
-		final String response = "[Multiple files] uploaded successfully.";
-		return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<String> uploadFiles(@RequestParam("files") MultipartFile[] files,  @RequestParam(value = "carId") final String carId) {
+		try {
+			s3service.uploadFiles(files, carId);
+		} catch (Exception e) {
+			String responseNG = "File Upload Error : "+ e.getMessage();
+			return new ResponseEntity<>(responseNG, HttpStatus.BAD_REQUEST);
+		}
+		final String responseOK = "[Multiple files] uploaded successfully.";
+		return new ResponseEntity<>(responseOK, HttpStatus.OK);
     }
 
 	@ApiOperation(value = "다운로드", notes = "단일 파일 다운로드")

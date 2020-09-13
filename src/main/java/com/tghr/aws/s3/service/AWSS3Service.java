@@ -47,7 +47,7 @@ public class AWSS3Service {
 	 * @param multipartFiles
 	 * @return
 	 */
-	public void uploadFiles(final MultipartFile[] multipartFiles, String carId) {
+	public void uploadFiles(final MultipartFile[] multipartFiles, String carId) throws Exception {
 		List<MultipartFile> filelist = Arrays.asList(multipartFiles);        
 		for (MultipartFile file : filelist) {
 			this.uploadFile(file, carId);
@@ -57,7 +57,7 @@ public class AWSS3Service {
 	// @Async annotation ensures that the method is executed in a different background thread 
 	// but not consume the main thread.
 	@Async
-	public String uploadFile(final MultipartFile multipartFile, String carId) {
+	public String uploadFile(final MultipartFile multipartFile, String carId) throws Exception {
 		String uniqueFileName="";
 		try {
 			final File file = fileutil.convertMultiPartFileToFile(multipartFile);	
