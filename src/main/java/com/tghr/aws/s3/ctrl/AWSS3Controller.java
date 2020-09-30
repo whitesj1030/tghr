@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
-@Api(value = "[파일] 파일  API", tags = {"[파일]  파일 서버 API (CRUD)"})
+@Api(value = "[파일] 파일  API", tags = { "[파일]  파일 서버 API (CRUD)" })
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api/s3")
@@ -29,29 +30,31 @@ public class AWSS3Controller {
 
 	@ApiOperation(value = "파일 업로드", notes = "단일 파일 업로드")
 	@PostMapping(value = "/upload")
-	public ResponseEntity<String> uploadFile(@RequestPart(value = "file") final MultipartFile multipartFile, @RequestParam(value = "carId") final String carId) {
+	public ResponseEntity<String> uploadFile(@RequestPart(value = "file") final MultipartFile multipartFile,
+			@RequestParam(value = "carId") final String carId) {
 		try {
 			s3service.uploadFile(multipartFile, carId);
 		} catch (Exception e) {
-			String responseNG = "File Upload Error : "+ e.getMessage();
+			String responseNG = "File Upload Error : " + e.getMessage();
 			return new ResponseEntity<>(responseNG, HttpStatus.BAD_REQUEST);
 		}
 		String responseOK = "[" + multipartFile.getOriginalFilename() + "] uploaded successfully.";
 		return new ResponseEntity<>(responseOK, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "여러개 파일 업로드", notes = "복수 파일 업로드")
 	@PostMapping(value = "/uploadFiles")
-    public ResponseEntity<String> uploadFiles(@RequestParam("files") MultipartFile[] files,  @RequestParam(value = "carId") final String carId) {
+	public ResponseEntity<String> uploadFiles(@RequestParam("files") MultipartFile[] files,
+			@RequestParam(value = "carId") final String carId) {
 		try {
 			s3service.uploadFiles(files, carId);
 		} catch (Exception e) {
-			String responseNG = "File Upload Error : "+ e.getMessage();
+			String responseNG = "File Upload Error : " + e.getMessage();
 			return new ResponseEntity<>(responseNG, HttpStatus.BAD_REQUEST);
 		}
 		final String responseOK = "[Multiple files] uploaded successfully.";
 		return new ResponseEntity<>(responseOK, HttpStatus.OK);
-    }
+	}
 
 	@ApiOperation(value = "다운로드", notes = "단일 파일 다운로드")
 	@GetMapping(value = "/download")
@@ -61,11 +64,19 @@ public class AWSS3Controller {
 		return ResponseEntity.ok().contentLength(data.length).header("Content-type", "application/octet-stream")
 				.header("Content-disposition", "attachment; filename=\"" + keyName + "\"").body(resource);
 	}
-	
+
 	@ApiOperation(value = "여러개 파일 URL download", notes = "복수 파일 URL download")
 	@GetMapping(value = "/imageList")
 	public ResponseEntity<Object> imageList(@RequestParam(value = "carId") final String carid) {
 		final List<String> imageUrlList = s3service.getCarImageList(carid);
-		return ResponseEntity.status(HttpStatus.OK).body(imageUrlList);		
+		return ResponseEntity.status(HttpStatus.OK).body(imageUrlList);
+	}
+
+	@ApiOperation(value = "삭제", notes = "단일 파일 삭제")
+	@DeleteMapping(value = "/deleteFile")
+	public ResponseEntity<String> deleteFile(@RequestParam(value = "fileName") final String uniqueFileName) {
+		s3service.deleteFile(uniqueFileName);
+		final String responseOK = "File " + uniqueFileName + " deleted successfully.";
+		return new ResponseEntity<>(responseOK, HttpStatus.OK);
 	}
 }

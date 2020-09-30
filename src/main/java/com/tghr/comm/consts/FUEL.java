@@ -1,7 +1,7 @@
 package com.tghr.comm.consts;
 
 public enum FUEL {
-	G,
-	L,
-	D
+	G,  // 가솔린
+	L,   // LGP
+	D  // 디젤
 }
